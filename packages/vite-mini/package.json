@@ -1,0 +1,20 @@
+{
+  "name": "vite-mini",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/compiler-sfc": "^3.5.13",
+    "es-module-lexer": "^1.6.0",
+    "esbuild": "^0.25.0",
+    "koa": "^2.16.0",
+    "magic-string": "^0.30.17"
+  }
+}
