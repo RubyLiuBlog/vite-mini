@@ -117,35 +117,6 @@ async function createDevServer(params) {
     console.log(`Server listening on port ${port}`);
   });
 
-  /**
-   * 解析 import 路径，替换为绝对路径
-   * @param {string} code
-   * @param {string} currentDir
-   * @returns {Promise<string>}
-   */
-  async function resolveImports(code, currentDir) {
-    const [imports] = parse(code);
-    if (!imports.length) return code;
-    // 这里通过MagicString来处理代码，真实项目中可以使用@babel/parser
-    const magicString = new MagicString(code);
-    for (let i = 0; i < imports.length; i++) {
-      const { s: start, e: end, d: dynamicIndex } = imports[i];
-      // 动态导入的跳过
-      if (dynamicIndex > -1) continue;
-      const importPath = code.substring(start, end);
-      // 1. 绝对路径 跳过
-      if (importPath.startsWith("/")) {
-        continue;
-      }
-      // 2. 相对路径
-      const resolvedPath = path.resolve(currentDir, importPath);
-      const normalizedPath =
-        "/" + path.relative(process.cwd(), resolvedPath).replace(/\\/g, "/"); // windows 兼容
-      magicString.overwrite(start, end, normalizedPath);
-    }
-    return magicString.toString();
-  }
-
   // 解析裸模块
   async function resolveBareModule(id) {
     try {
